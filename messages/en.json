@@ -31,5 +31,6 @@
   "your-information-was-successfully-registered": ".ثبت اطلاعات شما، با {span} انجام شد",
   "success": "موفقیت",
   "an-error-occurred": ".متاسفانه در ثبت اطلاعات شما، خطایی رخ داده است",
-  "try-again": ".مجددا، تلاش کنید"
+  "again-try": ".مجددا، تلاش کنید",
+  "try-again": "تلاش محدد"
 }

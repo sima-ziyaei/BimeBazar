@@ -4,7 +4,7 @@ const CarInsuranceDetails = () => {
   const t = useTranslations();
 
   const DataRow = ({ label, value }: { label: string; value: string }) => {
-    const dashes = "-".repeat(52 - label.length - value.length);
+    const dashes = "-".repeat(40 - label.length - value.length);
 
     return (
       <div className="flex flex-row-reverse justify-between w-[280px]">

@@ -8,13 +8,15 @@ import AddressModal from "@/components/modals/AddressModal";
 import { ServicesClass } from "@/service/Services";
 import { Address } from "@/models/Address.model";
 import { Order } from "@/models/Order.model";
+import ErrorModal from "./modals/ErrorModal";
 
 const InsuranceForm = () => {
   const t = useTranslations();
   const [selectedAddress, setSelectedAddress] = useState(null);
-  const [addresses, setAddresses] = useState<Address[]>()
+  const [addresses, setAddresses] = useState<Address[]>();
   const [loading, setLoading] = useState<boolean>();
   const [openAddressModal, setOpenAddressModal] = useState<boolean>(false);
+  const [openErrorModal, setOpenErrorModal] = useState<boolean>(false);
 
   const {
     register,
@@ -25,7 +27,7 @@ const InsuranceForm = () => {
     formState: { errors },
   } = useForm<formData>({
     resolver: zodResolver(formSchema),
-    mode: 'onChange'
+    mode: "onChange",
   });
 
   const nationalId = watch("nationalId");
@@ -34,24 +36,28 @@ const InsuranceForm = () => {
 
   console.log(aaa, nationalId);
 
-  const onSubmit = async (data: Order) => {
-    try {
-      console.log("Form data:", data);
-      const res = await ServicesClass.orderSubmission(data);
-      console.log("Submission response:", res);
-    } catch (error) {
-      console.error("Submission error:", error);
-    }
+  const onSubmit = (data: Order) => {
+    setLoading(true);
+    ServicesClass.orderSubmission(data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        setOpenErrorModal(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
-  const handleOpenModal = ()=>{
-      setOpenAddressModal(true);
+  const handleOpenModal = () => {
+    setOpenAddressModal(true);
   };
 
   useEffect(() => {
-    ServicesClass.getAddressesList().then((res)=>{
+    ServicesClass.getAddressesList().then((res) => {
       setAddresses(res);
-    })
+    });
   }, []);
 
   const isFormFilled =
@@ -103,15 +109,14 @@ const InsuranceForm = () => {
 
           <Controller
             name="addressId"
-            rules={{ required: "لطفاً یک آدرس انتخاب کنید" }}
             control={control}
+            rules={{ required: "لطفاً یک آدرس انتخاب کنید" }}
             render={({ field }) => (
               <div>
                 {selectedAddress ? (
                   <p className="h-[74px] text-[#757575]">
                     {selectedAddress.details}
                   </p>
-                  
                 ) : (
                   <>
                     <p
@@ -146,13 +151,19 @@ const InsuranceForm = () => {
       </form>
       {openAddressModal ? (
         <AddressModal
-        control={control}
+          control={control}
           addresses={addresses}
           setValue={setValue}
           setOpen={setOpenAddressModal}
           setSelectedAddress={setSelectedAddress}
           selectedAddress={selectedAddress}
         />
+      ) : null}
+      {openErrorModal ? (
+        <>
+          <div className="absolute inset-0 bg-black opacity-70"></div>
+          <ErrorModal setOpen={setOpenErrorModal} />
+        </>
       ) : null}
     </>
   );

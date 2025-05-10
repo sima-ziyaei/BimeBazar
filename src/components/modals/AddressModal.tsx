@@ -29,7 +29,10 @@ const AddressModal = ({
 
   const handleSelect = (address) => {
     setSelectedAddress(address);
-    setValue("addressId", address.id,{ shouldValidate: true });
+    setValue('addressId', address.id, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
   };
 
   const handleDelete = (address) => {
@@ -71,6 +74,7 @@ const AddressModal = ({
                               className="ml-1.5"
                               checked={selectedAddress?.id === address?.id}
                               onChange={() => handleSelect(address)}
+                              
                             />
                           )}
                         />

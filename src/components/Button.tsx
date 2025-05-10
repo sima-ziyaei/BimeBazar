@@ -20,7 +20,7 @@ const Button = ({
   return (
     <button
       onClick={!disable ? onClick : null}
-      className={`py-3 w-[140px] cursor-pointer ${
+      className={`py-3 w-[140px] flex gap-1.5 justify-center items-center cursor-pointer ${
         disable ? "!cursor-not-allowed" : ""
       } ${className} ${
         (disable || loading) && outlined
@@ -36,7 +36,7 @@ const Button = ({
       type={type}
     >
       {title}
-      {/* {loading?  : null} */}
+      {loading ? <img src={"/assets/1495.gif"} className="w-5 h-5" /> : null}
     </button>
   );
 };
