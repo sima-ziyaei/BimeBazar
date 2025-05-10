@@ -3,18 +3,13 @@ import { useTranslations } from "next-intl";
 const CarInsuranceDetails = () => {
   const t = useTranslations();
 
-  const DataRow = ({ label, value }: { label: string; value: string }) => {
-    const dashes = "-".repeat(40 - label.length - value.length);
-
-    return (
-      <div className="flex flex-row-reverse justify-between w-[280px]">
-        <span className="text-[#808080] text-sm">{label}</span>
-        <span>
-          {value} <span className="text-[#808080] text-sm">{dashes}</span>{" "}
-        </span>
-      </div>
-    );
-  };
+  const DataRow = ({ label, value }) => (
+    <div className="flex items-center">
+      <span className="">{value}</span>
+      <span className="grow border-b border-dashed border-[#E0E0E0] mx-[0.5px] translate-y-[-0.1em]" />
+      <span className="text-[#808080]">{label}</span>
+    </div>
+  );
 
   return (
     <>
@@ -24,8 +19,6 @@ const CarInsuranceDetails = () => {
         <DataRow label={t("car-brand")} value={t("pejo")} />
         <DataRow label={t("car-model")} value={t("206")} />
       </div>
-
-
     </>
   );
 };

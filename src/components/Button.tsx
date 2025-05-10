@@ -4,7 +4,7 @@ interface Props {
   title: string;
   loading?: boolean;
   className?: string;
-  onClick: () => void;
+  onClick: () => void | Promise<void>;
   type?: "submit" | "reset" | "button";
 }
 

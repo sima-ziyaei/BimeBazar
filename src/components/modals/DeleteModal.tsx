@@ -7,7 +7,8 @@ interface Props {
   address: Address;
   setSelectedAddress: (a: Address)=> void;
   selectedAddress: Address;
-  setOpen: (a: boolean)=> void
+  setOpen: (a: boolean)=> void;
+  setAddresses: (a) => void
 }
 
 const DeleteModal = ({
@@ -15,13 +16,14 @@ const DeleteModal = ({
   setSelectedAddress,
   selectedAddress,
   setOpen,
+  setAddresses
 }: Props) => {
   const t = useTranslations();
 
   const handleDelete = (id) => {
-    // setAddresses((prevAddresses) =>
-    //   prevAddresses.filter((address) => address.id !== id)
-    // );
+    setAddresses((prevAddresses) =>
+      prevAddresses.filter((address) => address.id !== id)
+    );
     if (selectedAddress === id) {
       setSelectedAddress(null);
     }

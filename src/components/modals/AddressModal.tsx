@@ -13,6 +13,7 @@ interface Props {
   setValue: (a, b, c) => void;
   addresses: Address[];
   control: any;
+  setAddresses: (a: Address[])=> void;
 }
 
 const AddressModal = ({
@@ -22,7 +23,9 @@ const AddressModal = ({
   selectedAddress,
   setValue,
   addresses,
+  setAddresses
 }: Props) => {
+  
   const t = useTranslations();
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>();
   const [deletedAddress, setDeletedAddress] = useState();
@@ -37,13 +40,13 @@ const AddressModal = ({
 
   const handleDelete = (address) => {
     setOpenDeleteModal(true);
-    setDeletedAddress(address);
+    setDeletedAddress(address)
   };
 
   return (
     <>
       <div className="absolute inset-0 bg-black opacity-70"></div>
-      <div className="w-full absolute bottom-0 bg-white">
+      <div className="w-full absolute bottom-0 left-0 bg-white">
         {!openDeleteModal ? (
           <>
             <div className="flex py-4 px-3 justify-between w-full items-center border-b border-solid border-[#E0E0E0] ">
@@ -74,7 +77,6 @@ const AddressModal = ({
                               className="ml-1.5"
                               checked={selectedAddress?.id === address?.id}
                               onChange={() => handleSelect(address)}
-                              
                             />
                           )}
                         />
@@ -105,7 +107,7 @@ const AddressModal = ({
         ) : (
           <DeleteModal
             address={deletedAddress}
-            // setAddresses={setAddresses}
+            setAddresses={setAddresses}
             setSelectedAddress={setSelectedAddress}
             selectedAddress={selectedAddress}
             setOpen={setOpenDeleteModal}

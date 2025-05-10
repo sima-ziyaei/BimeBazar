@@ -17,8 +17,7 @@ export const formSchema = z.object({
     .or(z.string().length(11, "phone-number-limitation"))
     .refine((value) => {
       return /^(09\d{9})$/.test(value) || /^[9]\d{9}$/.test(value);
-    }, "phone-number-limitation"),
-    addressId: z.object({}).required()
+    }, "phone-number-limitation")
 });
 
 export type formData = z.infer<typeof formSchema>;
