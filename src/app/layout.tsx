@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import {NextIntlClientProvider, useTranslations} from 'next-intl';
 import {getLocale} from 'next-intl/server';
-import Header from "@/components/layout/Header";
+import Header from "@/components/header/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +30,7 @@ const RootLayout = async ({ children }: LayoutProps) => {
   return (
     <html lang={locale}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-[360px] shadow-sm`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased w-[360px] shadow-sm mt-6 relative`}
       >
         <NextIntlClientProvider>
           <Header />
